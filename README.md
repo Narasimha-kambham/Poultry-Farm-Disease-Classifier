@@ -38,5 +38,4 @@ This project is a machine learning application for classifying poultry diseases 
 
 ## License
 This project is for educational purposes.
-```
-        
+
