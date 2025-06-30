@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poultry Disease Prediction Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #1A202C; /* Very Dark Blue-Grey */
+            --primary-dark-blue: #2C3E50; /* Deep Midnight Blue for header, main elements */
+            --card-dark-blue: #34495E; /* Slightly lighter dark blue for cards */
+            --accent-bright-green: #4CAF50; /* Vibrant Green for success/health */
+            --accent-bright-red: #E53E3E; /* Vibrant Red for disease */
+            --text-light: #E2E8F0; /* Light text for readability */
+            --text-muted: #A0AEC0; /* Muted text for descriptions */
+            --border-dark: #4A5568; /* Darker border for subtle separation */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align content from top */
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-dark-blue);
+            color: white;
+            padding: 30px 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: sticky; /* Sticky header, scrolls with content until top */
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            background: var(--card-dark-blue);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 550px; /* Slightly wider container */
+            width: 90%;
+            margin-top: 50px; /* More space below sticky header */
+            margin-bottom: 50px; /* Space above footer */
+            border: 1px solid var(--border-dark);
+            flex-grow: 1; /* Allows container to grow and push footer down */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically within container */
+            align-items: center;
+        }
+
+        .result-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent-bright-green); /* Default to green for heading */
+            margin-bottom: 15px;
+            font-size: 2.2em; /* Larger prediction heading */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Space between icon and text */
+        }
+
+        /* Specific colors for prediction results */
+        .result-healthy .result-section h2 {
+            color: var(--accent-bright-green);
+        }
+        .result-disease .result-section h2 {
+            color: var(--accent-bright-red);
+        }
+
+        .result-icon {
+            font-size: 0.9em; /* Make icon slightly smaller than text */
+        }
+
+        img {
+            margin: 25px 0;
+            border-radius: 10px; /* Slightly more rounded corners for image */
+            max-width: 100%;
+            height: auto;
+            border: 3px solid var(--accent-bright-green); /* Border around image, default to green */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Image border color based on prediction */
+        .result-disease img {
+            border-color: var(--accent-bright-red);
+        }
+
+        p {
+            font-size: 1.25em; /* Even larger text for prediction */
+            color: var(--text-light);
+            margin-bottom: 30px; /* More space before button */
+            font-weight: 600; /* Make prediction text bolder */
+        }
+
+        .prediction-text {
+            color: var(--accent-bright-green); /* Default prediction text color */
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between text and small icon */
+            font-size: 1.4em; /* Make the prediction itself stand out */
+        }
+        .result-disease .prediction-text {
+            color: var(--accent-bright-red);
+        }
+
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 15px 30px; /* Larger button */
+            background-color: var(--accent-bright-green);
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-weight: 700; /* Bolder button text */
+            font-size: 1.15em;
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.35); /* More prominent button shadow */
+        }
+
+        a:hover {
+            background-color: #5cb85c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.45);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-dark-blue);
+            color: var(--text-muted);
+            font-size: 0.9em;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            flex-shrink: 0; /* Prevents footer from shrinking */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Poultry Health Analysis</h1>
+    </header>
+    <div class="container" id="predictionContainer">
+        <div class="result-section result-healthy"> <h2><i class="fas fa-check-circle result-icon"></i> Analysis Complete</h2>
+            <img src="{{ user_image }}" alt="Uploaded Image" width="300">
+            <p>Your poultry appears to be: <span class="prediction-text">{{ prediction_text }}</span></p>
+        </div>
+
+
+        <a href="/">Analyze another image</a>
+    </div>
+    <footer>
+        <p>© Copyright 2025, Narasimha.</p>
+    </footer>
+
+    <script>
+        // JavaScript to dynamically add icons and classes based on prediction_text
+        document.addEventListener('DOMContentLoaded', function() {
+            const predictionTextElement = document.querySelector('.prediction-text');
+            const predictionContainer = document.getElementById('predictionContainer');
+            const resultHeading = document.querySelector('.result-section h2');
+
+            if (predictionTextElement && predictionContainer && resultHeading) {
+                const prediction = predictionTextElement.textContent.trim().toLowerCase();
+
+                let iconClass = '';
+                let containerClass = '';
+                let mainHeadingIcon = '';
+
+                if (prediction.includes('healthy')) {
+                    iconClass = 'fas fa-heartbeat'; // Heartbeat for healthy
+                    containerClass = 'result-healthy';
+                    mainHeadingIcon = 'fas fa-check-circle'; // Check circle for positive outcome
+                } else if (prediction.includes('coccidiosis')) {
+                    iconClass = 'fas fa-microbe'; // Microbe for coccidiosis
+                    containerClass = 'result-disease';
+                    mainHeadingIcon = 'fas fa-exclamation-triangle'; // Warning triangle for disease
+                } else if (prediction.includes('new castle disease')) {
+                    iconClass = 'fas fa-viruses'; // Viruses for New Castle
+                    containerClass = 'result-disease';
+                    mainHeadingIcon = 'fas fa-exclamation-triangle';
+                } else if (prediction.includes('salmonella')) {
+                    iconClass = 'fas fa-bacteria'; // Bacteria for Salmonella
+                    containerClass = 'result-disease';
+                    mainHeadingIcon = 'fas fa-exclamation-triangle';
+                } else {
+                    // Fallback for unknown predictions
+                    iconClass = 'fas fa-question-circle';
+                    containerClass = 'result-neutral'; // You might add a neutral class to CSS
+                    mainHeadingIcon = 'fas fa-info-circle';
+                }
+
+                // Add main heading icon
+                resultHeading.innerHTML = `<i class="${mainHeadingIcon} result-icon"></i> Analysis Complete`;
+
+                // Add specific icon next to prediction text
+                predictionTextElement.innerHTML = `${predictionTextElement.textContent.trim()} <i class="${iconClass}"></i>`;
+
+                // Add class to container for specific styling (like border color)
+                predictionContainer.classList.add(containerClass);
+            }
+        });
+    </script>
+</body>
+</html>

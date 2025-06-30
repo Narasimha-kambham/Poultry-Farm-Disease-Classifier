@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poultry Disease Predictor - Dark Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #1A202C; /* Very Dark Blue-Grey */
+            --primary-dark-blue: #2C3E50; /* Deep Midnight Blue for header, main elements */
+            --card-dark-blue: #34495E; /* Slightly lighter dark blue for cards */
+            --accent-bright: #4CAF50; /* Vibrant Green - retains a natural health feel */
+            --text-light: #E2E8F0; /* Light text for readability */
+            --text-muted: #A0AEC0; /* Muted text for descriptions */
+            --border-dark: #4A5568; /* Darker border for subtle separation */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-dark-blue);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Deeper shadow for dark theme */
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 1.5fr;
+            }
+        }
+
+        .card {
+            background: var(--card-dark-blue);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Softer, wider shadow for dark theme */
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-dark);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        .card h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent-bright); /* Accent for headings */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        .upload-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed var(--accent-bright);
+            padding: 40px;
+            cursor: pointer;
+            text-align: center;
+            min-height: 250px;
+            position: relative; /* For positioning preview image */
+        }
+
+        .upload-card:hover {
+            background-color: #3B526B; /* Slightly lighter on hover */
+            border-color: var(--text-light); /* Border changes to light for emphasis */
+        }
+
+        .upload-card i {
+            font-size: 60px;
+            color: var(--accent-bright);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .upload-card:hover i {
+            color: var(--text-light);
+        }
+
+        .upload-card p {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        input[type="submit"] {
+            background-color: var(--accent-bright);
+            color: var(--primary-dark-blue); /* Dark text on bright button */
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); /* Shadow from accent color */
+            display: none; /* Initially hidden */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5cb85c; /* Slightly lighter green on hover */
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--primary-dark-blue);
+            color: var(--text-muted);
+            font-size: 0.9em;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .disease-info-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .disease-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 15px;
+            background-color: var(--primary-dark-blue); /* Darker background for individual info cards */
+            border-radius: 8px;
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        .disease-info:hover {
+            background-color: #4A5568; /* Lighter dark blue on hover */
+        }
+
+        .disease-info i {
+            font-size: 36px;
+            color: var(--accent-bright); /* Accent color for icons */
+            min-width: 36px;
+        }
+
+        .disease-info div {
+            flex-grow: 1;
+        }
+
+        .disease-info h3 {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            color: var(--text-light); /* Light heading text */
+            font-size: 1.3em;
+        }
+
+        .disease-info p {
+            margin: 5px 0 0;
+            color: var(--text-muted); /* Muted description text */
+            font-size: 0.95em;
+        }
+
+        /* Loader specific styles */
+        #loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5em;
+            backdrop-filter: blur(5px); /* Optional: adds a blur effect */
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            opacity: 0; /* Start hidden */
+            visibility: hidden; /* Start hidden */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #loader-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top: 8px solid var(--accent-bright); /* Use accent color for loader */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image preview styles */
+        #image-preview {
+            max-width: 100%;
+            max-height: 200px; /* Limit height of preview */
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none; /* Initially hidden */
+            border: 2px solid var(--accent-bright);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader-overlay">
+        <div class="loader"></div>
+        <p>Analyzing image...</p>
+    </div>
+
+    <header>
+        <h1>Poultry Disease Predictor</h1>
+    </header>
+    <main>
+        <div class="card upload-card" id="uploadCard">
+            <div class="upload-content" id="uploadContent">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h2>Upload a Poultry Image</h2>
+                <p id="upload-instructions">Click anywhere in this box or drag an image here to upload for instant disease prediction.</p>
+                <img id="image-preview" src="#" alt="Image Preview">
+            </div>
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="file" accept="image/*" required>
+                <input type="submit" value="Analyze Image" id="analyzeButton">
+            </form>
+        </div>
+        <div class="card">
+            <h2>Supported Diseases & Conditions</h2>
+            <div class="disease-info-grid">
+                <div class="disease-info">
+                    <i class="fas fa-viruses"></i>
+                    <div>
+                        <h3>New Castle Disease</h3>
+                        <p>A highly contagious viral disease affecting the respiratory, nervous, and digestive systems of poultry.</p>
+                    </div>
+                </div>
+                <div class="disease-info">
+                    <i class="fas fa-disease"></i>
+                    <div>
+                        <h3>Coccidiosis</h3>
+                        <p>A common parasitic disease in poultry, primarily impacting the intestinal tract due to protozoan infection.</p>
+                    </div>
+                </div>
+                <div class="disease-info">
+                    <i class="fas fa-bacteria"></i>
+                    <div>
+                        <h3>Salmonella</h3>
+                        <p>A bacterial infection that can lead to severe illness in poultry and poses a risk for human transmission.</p>
+                    </div>
+                </div>
+                <div class="disease-info">
+                    <i class="fas fa-heartbeat"></i>
+                    <div>
+                        <h3>Healthy</h3>
+                        <p>Indicates that the poultry appears to be in optimal health, showing no signs of common diseases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>© Copyright 2025, Narasimha.
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadForm = document.getElementById('uploadForm');
+        const loaderOverlay = document.getElementById('loader-overlay');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadInstructions = document.getElementById('upload-instructions');
+        const uploadIcon = document.querySelector('.upload-card i');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const uploadCardH2 = document.querySelector('.upload-card h2');
+        const uploadCard = document.getElementById('uploadCard'); // Get the upload-card element
+
+        // Add a click listener to the upload card to trigger file input
+        uploadCard.addEventListener('click', function(event) {
+            // Only trigger file input if the click wasn't on the submit button itself
+            if (event.target !== analyzeButton) {
+                fileInput.click();
+            }
+        });
+
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // Show the image preview
+                    uploadInstructions.style.display = 'none'; // Hide instructions
+                    uploadIcon.style.display = 'none'; // Hide icon
+                    uploadCardH2.style.display = 'none'; // Hide H2
+                    analyzeButton.style.display = 'block'; // Show Analyze button
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = '#';
+                imagePreview.style.display = 'none'; // Hide preview if no file
+                uploadInstructions.style.display = 'block'; // Show instructions
+                uploadIcon.style.display = 'block'; // Show icon
+                uploadCardH2.style.display = 'block'; // Show H2
+                analyzeButton.style.display = 'none'; // Hide Analyze button
+            }
+        });
+
+        uploadForm.addEventListener('submit', function(event) {
+            // Prevent default form submission if no file is selected (though 'required' attribute handles this too)
+            if (!fileInput.files[0]) {
+                event.preventDefault();
+                alert('Please select an image to analyze.');
+                return;
+            }
+            // Show the loader overlay when the form is submitted
+            loaderOverlay.classList.add('show');
+        });
+
+        // Optional: Hide loader if user navigates back via browser history (though full page reload usually handles this)
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                loaderOverlay.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

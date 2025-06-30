@@ -1,0 +1,84 @@
+# -----------------------------------------------------------
+# Python Specific Ignores
+# For virtual environments, compiled files, and Jupyter Notebook checkpoints.
+# -----------------------------------------------------------
+
+# Ignore Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Ignore Python cache files and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+
+# -----------------------------------------------------------
+# Machine Learning Specific Ignores
+# For datasets, trained models, and hyperparameter tuning outputs.
+# -----------------------------------------------------------
+
+# Ignore data directories and large datasets.
+# Ensure these directories are empty or only contain small sample files if committed
+data/
+my_dir/
+
+# Ignore model files and weights that are NOT managed by Git LFS directly.
+# NOTE: *.keras is INTENTIONALLY REMOVED from here to allow Git LFS to track it.
+# If you want to add *.keras back AFTER it's committed with LFS as a safety net,
+# you can do so, but for now, it's removed to resolve the 'ignored' error during 'git add'.
+*.h5
+*.hdf5
+*.ckpt
+*.pb
+*.pkl
+*.joblib
+*.sav
+
+# Ignore hyperparameter tuning output directories (e.g., from KerasTuner)
+hyperband_tuning/
+# Generic log directories, if your training or application generates them
+logs/
+
+
+# -----------------------------------------------------------
+# Web Application Specific Ignores (Flask)
+# For files uploaded via the web application.
+# -----------------------------------------------------------
+
+# Ignore uploaded files from the web application
+static/uploads/
+
+
+# -----------------------------------------------------------
+# General Ignores
+# For temporary files, OS-specific files, environment variables, and IDE settings.
+# -----------------------------------------------------------
+
+# Ignore temporary files and system-generated logs
+*.tmp
+*.log
+
+# Ignore OS-specific temporary files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Ignore environment variable files, which may contain sensitive information
+.env
+
+# Ignore VSCode settings and project-specific files
+.vscode/
+
+# IMPORTANT NOTE regarding 'src/*':
+# This line will ignore ALL contents within the 'src' folder.
+# If your 'src' folder contains core Python source code that you want to track
+# (e.g., Python modules, utility scripts), then you should DELETE or COMMENT OUT this line.
+# It is typically used if 'src' is for generated build outputs or similar.
+# If 'src' contains your actual source code, remove this line.
+# src/*
