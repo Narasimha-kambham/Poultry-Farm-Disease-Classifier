@@ -7,9 +7,22 @@ This project is a machine learning application for classifying poultry diseases 
 - Deep learning model trained on poultry disease dataset
 - Web interface for easy usage
 
+## Project Details
+- **Input**: The model takes an image of poultry as input.
+- **Output**: The model outputs a prediction of the poultry's health status, classifying it into one of 4 categories: 'salmo', 'cocci', 'healthy', or 'ncd'.
+- **Classes**: The model is trained to classify images into 4 distinct classes:
+  - `salmo` (Salmonella)
+  - `cocci` (Coccidiosis)
+  - `healthy` (No disease detected)
+  - `ncd` (Newcastle Disease)
+
 ## Project Structure
 - `app.py` : Main Flask application
 - `src/` : Source code (data processing, model, training, utilities)
+  - `src/data.py`: Handles dataset loading and preprocessing.
+  - `src/model.py`: Defines the model architecture.
+  - `src/train.py`: Manages model training.
+  - `src/utils.py`: Contains helper functions for evaluation.
 - `static/uploads/` : Uploaded images
 - `templates/` : HTML templates for the web interface
 - `poultry_disease_model.keras` : Trained model file
